@@ -19,7 +19,7 @@ var hn = {
 	},
 	
 	setPage: function(){
-	
+
 		switch(window.location.pathname) {
 			case '/news':
 			case '/newest':
@@ -150,6 +150,16 @@ var hn = {
 		
 		$(document).click(hn.closeQuickReply);
 		$(document).scroll(hn.checkPageEnd);
+
+		$('body').keydown(function(ev){
+			console.log(ev);
+			var code = ev.keyCode || ev.which;
+			if (code == 9) {
+				ev.preventDefault();
+				hn.tabStory();
+			}
+		});
+
 	},
 	
 	shareStory: function(element, url, title){
@@ -594,6 +604,25 @@ var hn = {
 			f.splice(pos, 1);
 			hn.setStorage(name, f);
 		}
+	},
+
+	tabStory: function(){
+		var current = $('tr>td.hn-processed.hn-focused'),
+				next;
+
+		if (current.length) {
+			console.log('there is a current item');
+			nextParent = current.parent().next().next().next();
+			next = current.parent().next().next().next().find('td.hn-processed:first');
+		}
+		else {
+			console.log('there is no current item, take the first one');
+			next = $('tr>td.hn-processed:first');
+		}
+		
+		$('.hn-focused').removeClass('hn-focused');
+		next.addClass('hn-focused');
+		nextParent.find('a').focus();
 	}
 };
 

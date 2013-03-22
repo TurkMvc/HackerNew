@@ -183,6 +183,12 @@ table table a[href='http://ycombinator.com'] img {
 }
 
 
+/*********** Next Focus Button ***********/
+
+.hn-focused {
+  border:1px solid red;
+}
+
 /*********** Code Comments ***********/
 
 pre {
